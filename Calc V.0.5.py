@@ -1,17 +1,44 @@
 # -*- coding: cp1251 -*-
 import sys
 from PyQt6 import QtCore, QtGui, QtWidgets
-from PyQt6.QtWidgets import QWidget
 
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(280, 341)
-        self.MemoryLabel.setText("")
+        self.lcd = 0
         def button_cliked(num):
-            if self.MemoryLabel.text() == "":
-                if num == "x" or num == "%":
+            memlab = self.MemoryLabel.text()
+            if num == "x" or num == "%" or num == "+" or num == "-":
+                self.opt = num
+                if memlab == "":
+                    self.lastnumber = self.lcd
+                    self.MemoryLabel.setText(str(self.lcd) + " " + self.opt)
+                    self.lcd = 0
+                    self.lcdNumber.display(int(self.lcd))
+                else:
+                    self.lcd = 0
+                    self.MemoryLabel.setText("")
+                    self.lcdNumber.display(int(self.lcd))
+            elif num != "=":
+                self.lcd = str(self.lcd) + str(num)
+                self.lcd = int(self.lcd)
+                self.lcdNumber.display(self.lcd)
+            else:
+                if self.opt == "+":
+                    self.lcd = int(self.lastnumber) + int(self.lcd)
+                    self.lcdNumber.display(int(self.lcd))
+                elif self.opt == "-":
+                    self.lcd = int(self.lastnumber) - int(self.lcd)
+                    self.lcdNumber.display(int(self.lcd))
+                elif self.opt == "x":
+                    self.lcd = int(self.lastnumber) * int(self.lcd)
+                    self.lcdNumber.display(int(self.lcd))                    
+                elif self.opt == "%":
+                    self.lcd = int(self.lastnumber) / int(self.lcd)
+                    self.lcdNumber.display(int(self.lcd))
+                self.MemoryLabel.setText("")
                     
         MainWindow.setStyleSheet("background-color: rgb(0, 0, 0)")
         self.centralwidget = QtWidgets.QWidget(parent=MainWindow)
@@ -177,6 +204,23 @@ class Ui_MainWindow(object):
         self.MemoryLabel.setStyleSheet("color: white;")
         self.MemoryLabel.setObjectName("MemoryLabel")
         MainWindow.setCentralWidget(self.centralwidget)
+        
+        self.But1.clicked.connect(lambda: button_cliked(1))
+        self.But2.clicked.connect(lambda: button_cliked(2))
+        self.But3.clicked.connect(lambda: button_cliked(3))
+        self.But4.clicked.connect(lambda: button_cliked(4))
+        self.But5.clicked.connect(lambda: button_cliked(5))
+        self.But6.clicked.connect(lambda: button_cliked(6))
+        self.But7.clicked.connect(lambda: button_cliked(7))
+        self.But8.clicked.connect(lambda: button_cliked(8))
+        self.But9.clicked.connect(lambda: button_cliked(9))
+        self.ButtonPlus.clicked.connect(lambda: button_cliked("+"))
+        self.ButtonMinus.clicked.connect(lambda: button_cliked("-"))
+        self.ButtonOfX.clicked.connect(lambda: button_cliked("x"))
+        self.ButonOfPersent.clicked.connect(lambda: button_cliked("%"))
+        self.ButtonRavno.clicked.connect(lambda: button_cliked("="))
+        self.MemoryLabel.setText("")
+
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -200,7 +244,7 @@ class Ui_MainWindow(object):
         self.ButtonPlus.setText(_translate("MainWindow", "+"))
         self.ButtonMinus.setText(_translate("MainWindow", "-"))
         self.ButtonOfX.setText(_translate("MainWindow", "X"))
-        self.MemoryLabel.setText(_translate("MainWindow", "00"))
+        self.MemoryLabel.setText(_translate("MainWindow", ""))
 
 
 
