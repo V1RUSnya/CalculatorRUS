@@ -2,17 +2,15 @@
 import sys
 from PyQt6 import QtCore, QtGui, QtWidgets
 
-
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(280, 341)
         self.lcd = 0
         def button_cliked(num):
-            memlab = self.MemoryLabel.text()
             if num == "x" or num == "%" or num == "+" or num == "-":
                 self.opt = num
-                if memlab == "":
+                if self.MemoryLabel.text() == "":
                     self.lastnumber = self.lcd
                     self.MemoryLabel.setText(str(self.lcd) + " " + self.opt)
                     self.lcd = 0
@@ -227,7 +225,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Calculator"))
         self.But7.setText(_translate("MainWindow", "7"))
         self.ButonOfPersent.setText(_translate("MainWindow", "%"))
         self.But4.setText(_translate("MainWindow", "4"))
@@ -245,10 +243,7 @@ class Ui_MainWindow(object):
         self.ButtonMinus.setText(_translate("MainWindow", "-"))
         self.ButtonOfX.setText(_translate("MainWindow", "X"))
         self.MemoryLabel.setText(_translate("MainWindow", ""))
-
-
-
-    
+  
 app = QtWidgets.QApplication(sys.argv)
 MainWindow = QtWidgets.QMainWindow()
 ui = Ui_MainWindow()
