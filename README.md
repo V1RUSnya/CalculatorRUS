@@ -1,2 +1,2 @@
 # CalculatorRUS
-![Image alt](https://github.com/v1rusnya/CalculatorRUS/raw/main/pic.png)
+![Image alt](https://github.com/V1RUSnya/CalculatorRUS/blob/master/pic.png)
